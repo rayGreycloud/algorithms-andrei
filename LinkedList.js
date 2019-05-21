@@ -35,6 +35,45 @@ class LinkedList {
     return this.printList();
   }
 
+  insert(index, value) {
+    // check params
+    if (index >= this.length) {
+      return this.append(value);
+    } else if (index <= 0) {
+      return this.prepend(value);
+    }
+
+    const newNode = new Node(value);
+    const leader = this.lookup(index - 1);
+    const nextPointer = leader.next;
+    leader.next = newNode;
+    newNode.next = nextPointer;
+    this.length++;
+
+    return this.printList();
+  }
+
+  remove(index) {
+    const leader = this.lookup(index - 1);
+    const nextPointer = leader.next.next;
+    leader.next = nextPointer;
+    this.length--;
+
+    return this.printList();
+  }
+
+  lookup(index) {
+    let counter = 0;
+    let currentNode = this.head;
+
+    while (counter !== index) {
+      currentNode = currentNode.next;
+      counter++;
+    }
+
+    return currentNode;
+  }
+
   printList() {
     const list = [];
     let currentNode = this.head;
@@ -46,36 +85,6 @@ class LinkedList {
 
     console.log(list);
   }
-
-  insert(index, value) {
-    // check params
-    if (index >= this.length) {
-      return this.append(value);
-    } else if (index <= 0) {
-      return this.prepend(value);
-    }
-
-    const newNode = new Node(value);
-    const leader = this.traverseToIndex(index - 1);
-    const nextPointer = leader.next;
-    leader.next = newNode;
-    newNode.next = nextPointer;
-    this.length++;
-
-    return this.printList();
-  }
-
-  traverseToIndex(index) {
-    let counter = 0;
-    let currentNode = this.head;
-
-    while (counter !== index) {
-      currentNode = currentNode.next;
-      counter++;
-    }
-
-    return currentNode;
-  }
 }
 
 const myLinkedList = new LinkedList(10);
@@ -84,3 +93,4 @@ myLinkedList.append(16);
 myLinkedList.prepend(22);
 myLinkedList.printList();
 myLinkedList.insert(2, 42);
+myLinkedList.remove(2);
