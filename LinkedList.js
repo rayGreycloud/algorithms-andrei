@@ -54,9 +54,18 @@ class LinkedList {
   }
 
   remove(index) {
-    const leader = this.lookup(index - 1);
-    const nextPointer = leader.next.next;
-    leader.next = nextPointer;
+    if (index === 0) {
+      this.head = this.head.next;
+    } else {
+      const former = this.lookup(index - 1);
+      const targetNode = former.next;
+      former.next = targetNode.next;
+    }
+
+    if (this.tail == targetNode) {
+      this.tail = former;
+    }
+
     this.length--;
 
     return this.printList();
@@ -84,6 +93,10 @@ class LinkedList {
     }
 
     console.log(list);
+  }
+
+  reverse() {
+    //
   }
 }
 
