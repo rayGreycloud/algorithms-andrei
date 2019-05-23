@@ -61,7 +61,7 @@ class DoublyLinkedList {
 
   remove(index) {
     const former = this.lookup(index - 1);
-    const latter = leader.next.next;
+    const latter = former.next.next;
     former.next = latter;
     latter.prev = former;
     this.length--;
