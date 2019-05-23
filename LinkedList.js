@@ -62,7 +62,7 @@ class LinkedList {
       former.next = targetNode.next;
     }
 
-    if (this.tail == targetNode) {
+    if (index + 1 === this.length) {
       this.tail = former;
     }
 
@@ -96,7 +96,30 @@ class LinkedList {
   }
 
   reverse() {
-    //
+    if (!this.head.next) {
+      return this.head;
+    }
+
+    let first = this.head;
+    // set new tail
+    this.tail = this.head;
+    let second = first.next;
+
+    // If !second then first is last node
+    while (second) {
+      const third = second.next;
+      second.next = first;
+      // "Iterate" thru list
+      first = second;
+      second = third;
+    }
+
+    // set new tail's next
+    this.tail.next = null;
+    // set new head to last node
+    this.head = first;
+
+    return this.printList();
   }
 }
 
@@ -107,3 +130,4 @@ myLinkedList.prepend(22);
 myLinkedList.printList();
 myLinkedList.insert(2, 42);
 myLinkedList.remove(2);
+myLinkedList.reverse();
